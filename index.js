@@ -10,26 +10,26 @@ let arithmeticArray = [];
 let workingDisplay = [];
 let cleanedUpNumbers = [];
 let addOnArray = [];
-let tempEvaluatedArray = [];
-let indexOfMultiplyAndDivide = [];
-let indexOfMultiply = [];
-let indexOfDivide = [];
-let updatedArray = [];
+// let tempEvaluatedArray = [];
+// let indexOfMultiplyAndDivide = [];
+// let indexOfMultiply = [];
+// let indexOfDivide = [];
+// let updatedArray = [];
 let characterCount = 0;
 let operatorPresent = false;
 let hasDecimal = false;
 let indexCount = 0;
 let tempAnswer = 0;
-let operatorIndex = false;
-let multiplyOrDivide = false;
-let multiplicationRequiredFirst = false;
-let divisionRequiredFirst = false;
+// let operatorIndex = false;
+// let multiplyOrDivide = false;
+// let multiplicationRequiredFirst = false;
+// let divisionRequiredFirst = false;
 let firstOperand,
   secondOperand,
   operator,
-  x,
-  indexOfMultiplyOrDivide,
-  multiplier;
+  // x,
+  indexOfMultiplyOrDivide;
+// multiplier;
 
 reflectDisplay();
 
@@ -121,7 +121,7 @@ function reflectDisplay() {
 function clearAll() {
   answerBox.innerHTML = `0`;
   workingDisplay = [];
-  characterCount = [];
+  characterCount = 0;
   tempNumberSet = [];
   tempExpression = [];
   addOnArray = [];
@@ -131,7 +131,7 @@ function clearAll() {
   characterCount = 0;
   operatorPresent = false;
   hasDecimal = false;
-  multiplyOrDivide = false;
+  // multiplyOrDivide = false;
 }
 
 // this prepares the array for evaluation of the entire expression
