@@ -1,6 +1,6 @@
 // this does not take into account negative user input values
 // however, negative answers are possible
-// this does not obey order of operations
+// this obeys order of operations
 
 const allButtons = document.querySelectorAll(".buttons");
 let answerBox = document.querySelector(".answer-box");
@@ -10,16 +10,20 @@ let arithmeticArray = [];
 let workingDisplay = [];
 let cleanedUpNumbers = [];
 let addOnArray = [];
+<<<<<<< HEAD
 // let tempEvaluatedArray = [];
 // let indexOfMultiplyAndDivide = [];
 // let indexOfMultiply = [];
 // let indexOfDivide = [];
 // let updatedArray = [];
+=======
+>>>>>>> 0c6d43a (Added cases for order of operations)
 let characterCount = 0;
 let operatorPresent = false;
 let hasDecimal = false;
 let indexCount = 0;
 let tempAnswer = 0;
+<<<<<<< HEAD
 // let operatorIndex = false;
 // let multiplyOrDivide = false;
 // let multiplicationRequiredFirst = false;
@@ -30,6 +34,14 @@ let firstOperand,
   // x,
   indexOfMultiplyOrDivide;
 // multiplier;
+=======
+let firstOperand,
+  secondOperand,
+  operator,
+  indexOfMultiply,
+  indexOfDivide,
+  indexOfMultiplyOrDivide;
+>>>>>>> 0c6d43a (Added cases for order of operations)
 
 reflectDisplay();
 
@@ -131,7 +143,10 @@ function clearAll() {
   characterCount = 0;
   operatorPresent = false;
   hasDecimal = false;
+<<<<<<< HEAD
   // multiplyOrDivide = false;
+=======
+>>>>>>> 0c6d43a (Added cases for order of operations)
 }
 
 // this prepares the array for evaluation of the entire expression
@@ -155,7 +170,7 @@ function cleaningUpArray() {
       tempExpression.push(workingDisplay[i]);
       cleanedUpNumbers = tempExpression.join("");
       addOnArray = cleanedUpNumbers;
-      //   console.log(addOnArray);
+
       if (indexCount === workingDisplay.length - 1) {
         arithmeticArray.push(addOnArray);
       }
@@ -166,7 +181,6 @@ function cleaningUpArray() {
       arithmeticArray = arithmeticArray.concat(cleanedUpNumbers);
       cleanedUpNumbers = [];
       tempExpression = [];
-      //   console.log("do we get here?");
     }
     // console.log(indexCount);
     indexCount++;
@@ -185,21 +199,63 @@ function cleaningUpArray() {
 
 function evaluateExpression() {
   while (arithmeticArray.length > 1) {
+    indexOfMultiply = arithmeticArray.indexOf("x");
+    indexOfDivide = arithmeticArray.indexOf("/");
+    // if either 'x' or '/' appears, the following are all possible cases
     if (
       arithmeticArray.includes("x") === true ||
       arithmeticArray.includes("/") === true
     ) {
-      if (arithmeticArray.includes("x") === true) {
-        indexOfMultiplyOrDivide = arithmeticArray.indexOf("x");
-        firstOperand = parseFloat(arithmeticArray[indexOfMultiplyOrDivide - 1]);
-        operator = arithmeticArray[indexOfMultiplyOrDivide];
-        secondOperand = parseFloat(
-          arithmeticArray[indexOfMultiplyOrDivide + 1]
-        );
-        arithmeticOperations();
-        arithmeticArray.splice(indexOfMultiplyOrDivide - 1, 3, tempAnswer);
-        console.log(arithmeticArray);
-      } else {
+      if (arithmeticArray.includes("x")) {
+        // if both 'x', '/' found but 'x' appears first in array
+        if (indexOfMultiply < indexOfDivide && indexOfDivide >= 0) {
+          indexOfMultiplyOrDivide = arithmeticArray.indexOf("x");
+          firstOperand = parseFloat(
+            arithmeticArray[indexOfMultiplyOrDivide - 1]
+          );
+          operator = arithmeticArray[indexOfMultiplyOrDivide];
+          secondOperand = parseFloat(
+            arithmeticArray[indexOfMultiplyOrDivide + 1]
+          );
+          arithmeticOperations();
+          arithmeticArray.splice(indexOfMultiplyOrDivide - 1, 3, tempAnswer);
+          console.log(arithmeticArray);
+        }
+        // if both 'x', '/' found but '/' appears first in array
+        else if (
+          arithmeticArray.includes("/") === true &&
+          indexOfMultiply > indexOfDivide &&
+          indexOfDivide >= 0
+        ) {
+          indexOfMultiplyOrDivide = arithmeticArray.indexOf("/");
+          firstOperand = parseFloat(
+            arithmeticArray[indexOfMultiplyOrDivide - 1]
+          );
+          operator = arithmeticArray[indexOfMultiplyOrDivide];
+          secondOperand = parseFloat(
+            arithmeticArray[indexOfMultiplyOrDivide + 1]
+          );
+          arithmeticOperations();
+          arithmeticArray.splice(indexOfMultiplyOrDivide - 1, 3, tempAnswer);
+          console.log(arithmeticArray);
+        }
+        // if only 'x' appears, just multiply.
+        else {
+          indexOfMultiplyOrDivide = arithmeticArray.indexOf("x");
+          firstOperand = parseFloat(
+            arithmeticArray[indexOfMultiplyOrDivide - 1]
+          );
+          operator = arithmeticArray[indexOfMultiplyOrDivide];
+          secondOperand = parseFloat(
+            arithmeticArray[indexOfMultiplyOrDivide + 1]
+          );
+          arithmeticOperations();
+          arithmeticArray.splice(indexOfMultiplyOrDivide - 1, 3, tempAnswer);
+          console.log(arithmeticArray);
+        }
+      }
+      // if only '/' appears
+      else {
         indexOfMultiplyOrDivide = arithmeticArray.indexOf("/");
         firstOperand = parseFloat(arithmeticArray[indexOfMultiplyOrDivide - 1]);
         operator = arithmeticArray[indexOfMultiplyOrDivide];
@@ -210,7 +266,9 @@ function evaluateExpression() {
         arithmeticArray.splice(indexOfMultiplyOrDivide - 1, 3, tempAnswer);
         console.log(arithmeticArray);
       }
-    } else {
+    }
+    // if only '+' or '-' are in the array, no need for order of operations
+    else {
       firstOperand = parseFloat(arithmeticArray[0]);
       operator = arithmeticArray[1];
       secondOperand = parseFloat(arithmeticArray[2]);
@@ -236,5 +294,4 @@ function arithmeticOperations() {
   } else if (operator === "/") {
     tempAnswer = firstOperand / secondOperand;
   }
-  //   answerBox.innerHTML = tempAnswer;
 }
