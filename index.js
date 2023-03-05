@@ -10,38 +10,17 @@ let arithmeticArray = [];
 let workingDisplay = [];
 let cleanedUpNumbers = [];
 let addOnArray = [];
-<<<<<<< HEAD
-// let tempEvaluatedArray = [];
-// let indexOfMultiplyAndDivide = [];
-// let indexOfMultiply = [];
-// let indexOfDivide = [];
-// let updatedArray = [];
-=======
->>>>>>> 0c6d43a (Added cases for order of operations)
 let characterCount = 0;
 let operatorPresent = false;
 let hasDecimal = false;
 let indexCount = 0;
 let tempAnswer = 0;
-<<<<<<< HEAD
-// let operatorIndex = false;
-// let multiplyOrDivide = false;
-// let multiplicationRequiredFirst = false;
-// let divisionRequiredFirst = false;
-let firstOperand,
-  secondOperand,
-  operator,
-  // x,
-  indexOfMultiplyOrDivide;
-// multiplier;
-=======
 let firstOperand,
   secondOperand,
   operator,
   indexOfMultiply,
   indexOfDivide,
   indexOfMultiplyOrDivide;
->>>>>>> 0c6d43a (Added cases for order of operations)
 
 reflectDisplay();
 
@@ -143,10 +122,6 @@ function clearAll() {
   characterCount = 0;
   operatorPresent = false;
   hasDecimal = false;
-<<<<<<< HEAD
-  // multiplyOrDivide = false;
-=======
->>>>>>> 0c6d43a (Added cases for order of operations)
 }
 
 // this prepares the array for evaluation of the entire expression
