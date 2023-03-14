@@ -13,11 +13,9 @@ The goal of this project was to see if I could implement the logic in order to o
 N/A
 
 ## Usage
-The following shows basic calculator functionality
+The following shows basic calculator functionality, using the CLR button to start over:
 
-Provide instructions and examples for use. Include screenshots as needed.
-
-![alt text](assets/images/screenshot.png)
+![Calculator demo gif](https://github.com/myrojoylee/calculator/blob/main/calculator_demo.gif)
 
 ## Credits
 
