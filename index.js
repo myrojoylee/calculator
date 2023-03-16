@@ -51,24 +51,35 @@ function reflectDisplay() {
             isNaN(parseFloat(workingDisplay[characterCount - 1])) === false
           ) {
             if (this.classList.contains("operator")) {
-              if (this.classList.contains("equal")) {
-                // answerBox.innerHTML = "answer";
-                cleaningUpArray();
-                evaluateExpression();
-              } else {
-                operatorPresent = true;
-                hasDecimal = false;
-                characterCount++;
-                workingDisplay.push(this.innerHTML);
-                answerBox.innerHTML = workingDisplay.join("");
-                tempNumberSet = [];
-              }
+              operatorPresent = true;
+              hasDecimal = false;
+              characterCount++;
+              workingDisplay.push(this.innerHTML);
+              console.log("here");
+              answerBox.innerHTML = workingDisplay.join("");
+              tempNumberSet = [];
             } else {
               characterCount++;
               workingDisplay.push(this.innerHTML);
               answerBox.innerHTML = workingDisplay.join("");
               tempNumberSet.push(this.innerHTML);
             }
+          }
+        } else if (this.classList.contains("equal")) {
+          cleaningUpArray();
+          evaluateExpression();
+          clearPrevious();
+
+          // the following check for unnecessary zeros
+          // does not work yet
+        } else if (this.innerHTML === "0") {
+          if (workingDisplay[i - 1] === "0") {
+            console.log(workingDisplay[i - 1]);
+          } else {
+            characterCount++;
+            workingDisplay.push(this.innerHTML);
+            answerBox.innerHTML = workingDisplay.join("");
+            tempNumberSet.push(this.innerHTML);
           }
         } else {
           characterCount++;
@@ -97,6 +108,8 @@ function reflectDisplay() {
             answerBox.innerHTML = workingDisplay.join("");
             tempNumberSet.push(this.innerHTML);
           }
+        } else if (this.classList.contains("equal")) {
+          answerBox.innerHTML = "0";
         } else {
           characterCount++;
           workingDisplay.push(this.innerHTML);
@@ -124,8 +137,29 @@ function clearAll() {
   hasDecimal = false;
 }
 
+// when user hits equal sign, previous
+// expression is wiped and only the
+// answer is kept. They can keep going.
+function clearPrevious() {
+  workingDisplay = [];
+  workingDisplay.push(tempAnswer);
+  characterCount = 0;
+  tempNumberSet = [];
+  tempExpression = [];
+  addOnArray = [];
+  cleanedUpNumbers = [];
+  arithmeticArray = [];
+  indexCount = 0;
+  characterCount = 1;
+  operatorPresent = false;
+  hasDecimal = false;
+}
+
 // this prepares the array for evaluation of the entire expression
 function cleaningUpArray() {
+  // the following eliminates the last array value
+  // if it is an operator or decimal point with
+  // no numbers following it
   if (
     workingDisplay[workingDisplay.length - 1] === "x" ||
     workingDisplay[workingDisplay.length - 1] === "/" ||
@@ -144,22 +178,28 @@ function cleaningUpArray() {
     ) {
       tempExpression.push(workingDisplay[i]);
       cleanedUpNumbers = tempExpression.join("");
-      addOnArray = cleanedUpNumbers;
 
+      addOnArray = cleanedUpNumbers;
+      console.log(cleanedUpNumbers);
+
+      // ensures the last number does not get omitted
       if (indexCount === workingDisplay.length - 1) {
         arithmeticArray.push(addOnArray);
+        console.log(arithmeticArray);
       }
     } else {
-      //   arithmeticArray.push(workingDisplay[i]);
       cleanedUpNumbers = cleanedUpNumbers.split(" ");
       cleanedUpNumbers.push(workingDisplay[i]);
       arithmeticArray = arithmeticArray.concat(cleanedUpNumbers);
       cleanedUpNumbers = [];
       tempExpression = [];
     }
-    // console.log(indexCount);
+
     indexCount++;
   }
+
+  // final check that our array does not end with an
+  // array or decimal point
   if (
     arithmeticArray[arithmeticArray.length - 1] === "x" ||
     arithmeticArray[arithmeticArray.length - 1] === "/" ||
