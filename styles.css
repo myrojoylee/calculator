@@ -95,3 +95,20 @@ body {
   cursor: pointer;
   background-color: #d6d3d1;
 }
+
+@media (max-width: 600px) {
+  .calculator {
+    width: 350px;
+    height: 350px;
+  }
+
+  .number,
+  .other,
+  .operator {
+    font-size: 1.45rem;
+  }
+
+  .answer-box {
+    font-size: 2rem;
+  }
+} ;
