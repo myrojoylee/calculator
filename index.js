@@ -69,18 +69,6 @@ function reflectDisplay() {
           cleaningUpArray();
           evaluateExpression();
           clearPrevious();
-
-          // the following check for unnecessary zeros
-          // does not work yet
-        } else if (this.innerHTML === "0") {
-          if (workingDisplay[i - 1] === "0") {
-            console.log(workingDisplay[i - 1]);
-          } else {
-            characterCount++;
-            workingDisplay.push(this.innerHTML);
-            answerBox.innerHTML = workingDisplay.join("");
-            tempNumberSet.push(this.innerHTML);
-          }
         } else {
           characterCount++;
           workingDisplay.push(this.innerHTML);
@@ -111,10 +99,13 @@ function reflectDisplay() {
         } else if (this.classList.contains("equal")) {
           answerBox.innerHTML = "0";
         } else {
-          characterCount++;
-          workingDisplay.push(this.innerHTML);
-          answerBox.innerHTML = workingDisplay.join("");
-          tempNumberSet.push(this.innerHTML);
+          // prevents extra zeros at the start
+          if (this.innerHTML !== "0") {
+            characterCount++;
+            workingDisplay.push(this.innerHTML);
+            answerBox.innerHTML = workingDisplay.join("");
+            tempNumberSet.push(this.innerHTML);
+          }
         }
       }
     });
@@ -133,6 +124,7 @@ function clearAll() {
   arithmeticArray = [];
   indexCount = 0;
   characterCount = 0;
+  tempAnswer = 0;
   operatorPresent = false;
   hasDecimal = false;
 }
@@ -142,7 +134,9 @@ function clearAll() {
 // answer is kept. They can keep going.
 function clearPrevious() {
   workingDisplay = [];
-  workingDisplay.push(tempAnswer);
+  if (tempAnswer !== 0) {
+    workingDisplay.push(tempAnswer);
+  }
   characterCount = 0;
   tempNumberSet = [];
   tempExpression = [];
